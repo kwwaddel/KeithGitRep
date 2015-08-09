@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRAuth", "SignalRAuth\SignalRAuth.csproj", "{27584165-724F-46F9-AC55-76B21B3712CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRAuthTests", "SignalRAuthTests\SignalRAuthTests.csproj", "{B4E8D4FE-C5AC-4D9C-B0D4-3835CAB2D545}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27584165-724F-46F9-AC55-76B21B3712CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27584165-724F-46F9-AC55-76B21B3712CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27584165-724F-46F9-AC55-76B21B3712CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27584165-724F-46F9-AC55-76B21B3712CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E8D4FE-C5AC-4D9C-B0D4-3835CAB2D545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E8D4FE-C5AC-4D9C-B0D4-3835CAB2D545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E8D4FE-C5AC-4D9C-B0D4-3835CAB2D545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E8D4FE-C5AC-4D9C-B0D4-3835CAB2D545}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
