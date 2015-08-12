@@ -24,7 +24,7 @@
                 vm.loginMessage = "login was successful";
 
                 $location.path("/viewB");
-                
+                var name;
                 //start hub connection
                 var hub = $.hubConnection();
                 //var hub2 = $.connection.hubConn;
@@ -38,18 +38,25 @@
                 //});
 
                 proxy.on('startGame', function () {
+                    console.log("NAME: " + name);
                     var gHub = $.hubConnection();
                     var gProxy = gHub.createHubProxy("GameHub");
-                    gProxy.on("display", function () {
-                        $("#test").append("<li>testing</li>");
-                        console.log("gproxy");
+
+                    gProxy.on("showPlayer", function (player) {
+                        $("#test").append("<li>" + player.Name + "</li>");
                     });
 
+                    gProxy.on("showGame", function () {
+                        $("#test").append("<li>Show Game</li>");
+                        console.log("showGame");
+                        gProxy.invoke("getPlayerData");
+                    });
+                    
                     hub.stop();
                     
                     gHub.start().done(function () {
                         console.log("in new hub");
-                        gProxy.invoke("test");
+                        gProxy.invoke("makeGame");
                     });
                 });
                 
@@ -57,30 +64,13 @@
                     //var id = hub.id;
                     
                     proxy.invoke('addUser');
-                    proxy.invoke("findGame", hub.id);
-                    //while (true) {
-                    //    console.log(proxy.invoke("findGame", hub.id));
-                    //    var b = proxy.invoke("findGame", hub.id).done(function (result) {
-                    //        console.log("result: " + result);
-                    //    }).fail(function (error) {
-                    //        console.log('Error: ' + error);
-                    //    });;
-                    //    console.log("b " + b);
-                    //    if (proxy.invoke("findGame", hub.id))
-                    //        break;
-                    //}
-                    //var gHub = $.hubConnection();
-                    //var gProxy = gHub.createHubProxy("GameHub");
-
-                    //gProxy.on("connected", function () {
-
-                    //});
-
-                    //hub.stop();
-
-                    //gHub.start().done(function () {
-                    //    console.log("in new hub");
-                    //});
+                    proxy.invoke("test").done(function (val) {
+                        //$("#test").append("<li>" + val + "</li>");
+                        console.log(val + " HERERER");
+                        name = val;
+                    });
+                    //proxy.invoke("findGame", hub.id);
+                    
                 });
 
                 //proxy.server.addUser();

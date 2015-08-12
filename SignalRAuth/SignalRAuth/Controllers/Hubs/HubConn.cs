@@ -7,7 +7,7 @@ using Microsoft.AspNet.SignalR;
 using System.Diagnostics;
 using System.Collections.Concurrent;
 
-namespace SignalRAuth.Models
+namespace SignalRAuth.Controllers.Hubs
 {
     public class HubConn : Hub
     {
@@ -15,6 +15,8 @@ namespace SignalRAuth.Models
         //{
         //    Clients.All.hello();
         //}
+        private Object _theLock = new object();
+
         public String Test(string message)
         {
             // Call the broadcastMessage method to update clients.
@@ -49,36 +51,49 @@ namespace SignalRAuth.Models
         public void AddUser()
         {
             Connections.Enqueue(Context.ConnectionId);
-            Debug.WriteLine("adduser, Connections: " + Connections.Count + " " + Context.ConnectionId + " Connected");
+            Debug.WriteLine("adduser, Connections: " + Connections.Count + " " + Context.ConnectionId + " " + Context.User.Identity.Name + " Connected");
+            FindGame(Context.ConnectionId);
         }
 
         //2 used for testing make 4 or more later
         public void FindGame(String id)
         {
-            List<String> group;
-            bool result = false;
+            Debug.WriteLine("findgame: " + Context.User.Identity.Name);
 
-            if (Connections.Count < 2)
-                return;
-
-            group = new List<String>(Connections.Where(x => x.IndexOf(x) < 2));
-
-            if (!group.Contains(id))
-                result = false;
-            else
+            lock (_theLock)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    String s;
-                    Connections.TryDequeue(out s);
-                    Clients.Client(s).startGame();
+                List<String> group;
+                bool result = false;
 
+                if (Connections.Count < 2)
+                    return;
+                
+                group = new List<String>(Connections.Where(x => x.IndexOf(x) < 2));
+
+                if (!group.Contains(id))
+                    result = false;
+                else
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        String s;
+                        Connections.TryDequeue(out s);
+                        //Debug.WriteLine("id in findgame dequeue: " + s);
+                        Clients.Client(s).startGame();
+
+                    }
+                    result = true;
                 }
-                result = true;
+
+                //return result;
             }
 
-            //return result;
-            
+
+        }
+
+        public String Test()
+        {
+            return "a test";
         }
 
     }

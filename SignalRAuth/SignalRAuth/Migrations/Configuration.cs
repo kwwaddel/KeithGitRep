@@ -47,17 +47,17 @@ namespace SignalRAuth.Migrations
                 //userManager.AddClaim(user.Id, new Claim("EditProducts", "true"));
             }
 
-            //var user2 = userManager.FindByName("1");
-            //if (user2 == null)
-            //{
-            //    user2 = new ApplicationUser
-            //    {
-            //        UserName = "1",
-            //        Email = "1"
-            //    };
-            //    userManager.Create(user2, "1");
-            //    //userManager.AddClaim(user2.Id, new Claim("EditProducts", "true"));
-            //}
+            var user2 = userManager.FindByName("player2@gmail.com");
+            if (user2 == null)
+            {
+                user2 = new ApplicationUser
+                {
+                    UserName = "player2@gmail.com",
+                    Email = "player2@gmail.com"
+                };
+                userManager.Create(user2, "password");
+                //userManager.AddClaim(user2.Id, new Claim("EditProducts", "true"));
+            }
         }
     }
 }
